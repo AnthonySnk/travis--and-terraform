@@ -17,10 +17,10 @@ branches:
     - master
 
 before_install: 
-  -  chmod +x ./scripts/install.sh
-  -  chmod +x ./scripts/tf-apply.sh
-  - chmod +x ./scripts/tf-plan.sh
-  - ./scripts/install.sh
+  # - chmod +x ./scripts/install.sh
+  # - chmod +x ./scripts/tf-apply.sh
+  # - chmod +x ./scripts/tf-plan.sh
+  - bash ./scripts/install.sh
 
 jobs:
   include:
@@ -30,4 +30,4 @@ jobs:
 
     - stage: terraform Apply
       if: type IN (push) and branch = master
-      script: ./scripts/tf-apply.sh
+      script: bash ./scripts/tf-apply.sh
