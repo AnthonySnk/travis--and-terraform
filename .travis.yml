@@ -20,7 +20,7 @@ before_install:
   # -  chmod +x ./scripts/install.sh
   # -  chmod +x ./scripts/tf-apply.sh
   # - chmod +x ./scripts/tf-plan.sh
-  - ./scripts/install.sh
+  - bash ./scripts/install.sh
 
 jobs:
   include:
