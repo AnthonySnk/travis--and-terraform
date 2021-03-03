@@ -16,17 +16,14 @@ branches:
   only:
     - master
 
-# before_install:
-#   install: ./script/install.sh
+before_install: ./scripts/install.sh
 
 jobs:
   include:
     - stage: terraform Plan
       if: type IN (pull_request)
-      install: ./script/install.sh
-      script: ./script/tf-plan.sh
+      script: ./scripts/tf-plan.sh
 
     - stage: terraform Apply
       if: type IN (push) and branch = master
-      install: ./script/install.sh
-      script: ./script/tf-apply.sh
+      script: ./scripts/tf-apply.sh
