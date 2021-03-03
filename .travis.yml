@@ -11,7 +11,6 @@ env:
     - tf_validation_cli_options=""
     - tf_plan_cli_options="-lock=false -input=false"
     - tf_apply_cli_options="-auto-approve -input=false"
-    - workspace="$pwd/terraform"
 
 branches:
   only:
