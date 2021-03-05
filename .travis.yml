@@ -18,19 +18,19 @@ jobs:
       script:
         - environment=dev
         - cd $folder_dev
-        - bash ./scripts/tf-plan.sh
+        - bash ../scripts/tf-plan.sh
 
     - stage: terraform plan prod
       if: branch IN (prod,master) and type IN (pull_request)
       script:
         - environment=$branch_PROD
         - cd $folder_prod
-        - bash ./scripts/tf-plan.sh
+        - bash ../scripts/tf-plan.sh
     
     - stage: terraform apply
       if: (branch IN (dev,prod,master)) and type IN (push,merge)
       script:
         - environment=$branch_PROD
         - cd $folder_prod
-        - bash ./scripts/tf-apply.sh
+        - bash ../scripts/tf-apply.sh
       
