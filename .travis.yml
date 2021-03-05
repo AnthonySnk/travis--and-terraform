@@ -3,7 +3,7 @@ dist: xenial
 language: bash
 
 env:
-    - environment="prod" folder_dev="./development" folder_prod="./production" onepasstool=1.8.0 tf_version=0.13.0 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false" tf_var_file="./terraform.tfvars"
+    - bucketName="my-bucket-test12" environment="prod" folder_dev="./development" folder_prod="./production" onepasstool=1.8.0 tf_version=0.13.0 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false" tf_var_file="./terraform.tfvars"
 
 branches:
   only:
