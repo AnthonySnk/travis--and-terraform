@@ -7,7 +7,7 @@ languague: bash
 env:
   global:
     # BRANCHES VARIABLES
-    - environment=""
+    - environment="prod"
     - branch_DEV="dev"
     - branch_PROD="prod"
     # DIRECTORIES VARIABLES
@@ -23,29 +23,20 @@ env:
     - tf_apply_cli_options="-auto-approve -input=false"
     - tf_var_file="./terraform.tfvars"
 
-before_install:
-  if: branch = $branch_DEV # If branch is development
-  script:
-    - $environment=$branch_DEV
-    - cd $folder_dev
-    
-  if: branch IN ($branch_PROD,master) # if branches is production
-  script:
-    - $environment=$branch_PROD
-    - cd $folder_prod
-      
-install: bash ./scripts/install.sh
-
 jobs:
   include:
     - stage: terraform plan dev
       if: branch = $branch_DEV and type IN (pull_request)
       script:
+        - $environment=$branch_DEV
+        - cd $folder_dev
         - bash ./scripts/tf-plan.sh
 
     - stage: terraform plan prod
-      if: branch = $branch_PROD and type IN (pull_request)
+      if: branch IN ($branch_PROD,master)  and type IN (pull_request)
       script:
+        - $environment=$branch_PROD
+        - cd $folder_prod
         - bash ./scripts/tf-plan.sh
     
     - stage: terraform apply dev
