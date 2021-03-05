@@ -3,7 +3,6 @@ dist: xenial
 languague: bash
 
 env:
-  global:
     # BRANCHES VARIABLES
     - environment="prod"
     - branch_DEV="dev"
