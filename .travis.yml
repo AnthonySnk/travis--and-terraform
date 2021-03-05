@@ -44,7 +44,7 @@ jobs:
           - bash ./scripts/tf-plan.sh
 
     - stage: terraform plan prod
-      if: branch = branch_PROD and type IN (pull_request)
+      if: branch = $branch_PROD and type IN (pull_request)
         script:
           - bash ./scripts/tf-plan.sh
     
