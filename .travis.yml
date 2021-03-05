@@ -1,14 +1,6 @@
 # Define environment
-os: linux
 dist: xenial
-
 languague: bash
-
-branches:
-  only:
-    - master
-    - dev
-    - prod
 
 env:
   global:
@@ -17,8 +9,8 @@ env:
     - branch_DEV="dev"
     - branch_PROD="prod"
     # DIRECTORIES VARIABLES
-    - folder_dev="$PWD/development"
-    - folder_prod="$PWD/production"
+    - folder_dev="./development"
+    - folder_prod="./production"
     # 1PASSWORD VARIABLES
     - onepasstool=1.8.0
     # TERRAFORM VARIABLES
@@ -28,6 +20,12 @@ env:
     - tf_plan_cli_options="-lock=false -input=false"
     - tf_apply_cli_options="-auto-approve -input=false"
     - tf_var_file="./terraform.tfvars"
+
+branches:
+  only:
+    - master
+    - dev
+    - prod
 
 jobs:
   include:
