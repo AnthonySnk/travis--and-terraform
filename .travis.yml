@@ -4,6 +4,12 @@ dist: xenial
 
 languague: bash
 
+branches:
+  only:
+    - master
+    - dev
+    - prod
+
 env:
   global:
     # BRANCHES VARIABLES
