@@ -1,0 +1,33 @@
+# Define environment
+os: linux
+dist: xenial
+
+languague: bash
+
+env:
+  global:
+    - onepasstool=1.8.0
+    - tf_version=0.13.0
+    - tf_init_cli_options="-input=false"
+    - tf_validation_cli_options=""
+    - tf_plan_cli_options="-lock=false -input=false"
+    - tf_apply_cli_options="-auto-approve -input=false"
+    - tf_var_file="./terraform.tfvars"
+
+branches:
+  only:
+    - master
+
+before_install: 
+  
+  - bash ./scripts/install.sh
+
+jobs:
+  include:
+    - stage: terraform Plan
+      if: type IN (pull_request)
+      script: bash ./scripts/tf-plan.sh
+
+    - stage: terraform Apply
+      if: type IN (push) and branch = master
+      script: bash ./scripts/tf-apply.sh
