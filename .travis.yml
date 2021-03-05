@@ -3,20 +3,7 @@ dist: xenial
 language: bash
 
 env:
-    # BRANCHES VARIABLES
-    - environment="prod"
-    # DIRECTORIES VARIABLES
-    - folder_dev="./development"
-    - folder_prod="./production"
-    # 1PASSWORD VARIABLES
-    - onepasstool=1.8.0
-    # TERRAFORM VARIABLES
-    - tf_version=0.13.0
-    - tf_init_cli_options="-input=false"
-    - tf_validation_cli_options=""
-    - tf_plan_cli_options="-lock=false -input=false"
-    - tf_apply_cli_options="-auto-approve -input=false"
-    - tf_var_file="./terraform.tfvars"
+    - environment="prod" folder_dev="./development" folder_prod="./production" onepasstool=1.8.0 tf_version=0.13.0 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false" tf_var_file="./terraform.tfvars"
 
 branches:
   only:
@@ -29,21 +16,21 @@ jobs:
     - stage: terraform plan dev
       if: branch = dev and type IN (pull_request)
       script:
-        - $environment=$branch_DEV
+        - environment=dev
         - cd $folder_dev
         - bash ./scripts/tf-plan.sh
 
     - stage: terraform plan prod
       if: branch IN (prod,master) and type IN (pull_request)
       script:
-        - $environment=$branch_PROD
+        - environment=$branch_PROD
         - cd $folder_prod
         - bash ./scripts/tf-plan.sh
     
     - stage: terraform apply
       if: (branch IN (dev,prod,master)) and type IN (push,merge)
       script:
-        - $environment=$branch_PROD
+        - environment=$branch_PROD
         - cd $folder_prod
         - bash ./scripts/tf-apply.sh
       
