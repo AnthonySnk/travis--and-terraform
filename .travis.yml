@@ -25,14 +25,14 @@ env:
 
 before_install:
   if: branch = $branch_DEV # If branch is development
-    script:
-      - $environment=$branch_DEV
-      - cd $folder_dev
+  script:
+    - $environment=$branch_DEV
+    - cd $folder_dev
     
   if: branch IN ($branch_PROD,master) # if branches is production
-    script:
-      - $environment=$branch_PROD
-      - cd $folder_prod
+  script:
+    - $environment=$branch_PROD
+    - cd $folder_prod
       
 install: bash ./scripts/install.sh
 
@@ -40,16 +40,16 @@ jobs:
   include:
     - stage: terraform plan dev
       if: branch = $branch_DEV and type IN (pull_request)
-        script:
-          - bash ./scripts/tf-plan.sh
+      script:
+        - bash ./scripts/tf-plan.sh
 
     - stage: terraform plan prod
       if: branch = $branch_PROD and type IN (pull_request)
-        script:
-          - bash ./scripts/tf-plan.sh
+      script:
+        - bash ./scripts/tf-plan.sh
     
     - stage: terraform apply dev
       if: (branch IN ($branch_DEV,$branch_PROD,master)) and type IN (push,merge)
-        script:
-          - bash ./scripts/tf-apply.sh
+      script:
+        - bash ./scripts/tf-apply.sh
       
