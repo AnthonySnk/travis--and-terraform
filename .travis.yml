@@ -10,6 +10,9 @@ branches:
     - master
     - dev
     - prod
+    
+before_script:
+  - bash ./scripts/install.sh
 
 jobs:
   include:
