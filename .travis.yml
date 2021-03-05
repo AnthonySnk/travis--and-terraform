@@ -1,12 +1,10 @@
 # Define environment
 dist: xenial
-languague: bash
+language: bash
 
 env:
     # BRANCHES VARIABLES
     - environment="prod"
-    - branch_DEV="dev"
-    - branch_PROD="prod"
     # DIRECTORIES VARIABLES
     - folder_dev="./development"
     - folder_prod="./production"
@@ -29,21 +27,21 @@ branches:
 jobs:
   include:
     - stage: terraform plan dev
-      if: branch = $branch_DEV and type IN (pull_request)
+      if: branch = dev and type IN (pull_request)
       script:
         - $environment=$branch_DEV
         - cd $folder_dev
         - bash ./scripts/tf-plan.sh
 
     - stage: terraform plan prod
-      if: branch IN ($branch_PROD,master)  and type IN (pull_request)
+      if: branch IN (prod,master) and type IN (pull_request)
       script:
         - $environment=$branch_PROD
         - cd $folder_prod
         - bash ./scripts/tf-plan.sh
     
     - stage: terraform apply
-      if: (branch IN ($branch_DEV,$branch_PROD,master)) and type IN (push,merge)
+      if: (branch IN (dev,prod,master)) and type IN (push,merge)
       script:
         - $environment=$branch_PROD
         - cd $folder_prod
